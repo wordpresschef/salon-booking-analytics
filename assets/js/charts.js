@@ -1,1 +1,1 @@
-// Chart placeholder
+// Chart.js logic placeholder
