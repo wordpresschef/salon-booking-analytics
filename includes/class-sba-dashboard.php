@@ -6,7 +6,15 @@ class SBA_Dashboard {
             'sln-b-paylater', 'sln-b-canceled', 'sln-b-confirmed', 'sln-b-error'
         ];
 
-        $saved_statuses = isset($_GET['statuses']) ? explode(',', $_GET['statuses']) : $statuses;
+        if (isset($_GET['statuses'])) {
+            if (is_array($_GET['statuses'])) {
+                $saved_statuses = array_map('sanitize_text_field', $_GET['statuses']);
+            } else {
+                $saved_statuses = array_map('sanitize_text_field', explode(',', $_GET['statuses']));
+            }
+        } else {
+            $saved_statuses = $statuses;
+        }
         $from = isset($_GET['from']) ? $_GET['from'] : date('Y-m-01');
         $to = isset($_GET['to']) ? $_GET['to'] : date('Y-m-d');
 
